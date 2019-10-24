@@ -1,17 +1,23 @@
-const {task} = require('gulp');
-const {watch} = require('gulp');
+const { parallel, watch } = require('gulp');
 
-task('default', function(done) {
-    console.log("yay, new gulp task here");
+function itsworking (done){
+    console.log('default is running yay');
     done();
-});
+}
 
-task('html', function(done) {
-    console.log("imagine stuff happening to your html");
-    done();
-});
+function watchHtml (){
+    watch('./app/index.html', {events: 'change'}, function (done){
+        console.log('something happened to your html :O');
+        done();
+    });
+}
 
-const watcher = watch(['./app/index.html']);
-watcher.on('change', function () {
-    task('html');
-});
+function watchCss (){
+    watch('.app/assets/styles/**/*.css', {events: 'change'}, function (done) {
+        console.log('something happened to your css :O');
+        done();
+    });
+}
+
+exports.default = itsworking;
+exports.watch = parallel(watchHtml, watchCss);
