@@ -1,5 +1,3 @@
-const { parallel } = require('gulp'),
-    requireDir = require('require-dir'),
-    dir = requireDir('./gulp/tasks');
+const watch = require('./gulp/tasks/watch');
 
-exports.watch = parallel(dir.watch);
+exports.watch = watch.watch;

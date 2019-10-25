@@ -1,4 +1,5 @@
 const { series, parallel, watch, src } = require('gulp'),
+    styles = require('./styles'),
     browserSync = require('browser-sync').create();
 
 function sync (done) {
@@ -23,7 +24,7 @@ function watchHtml () {
 }
 
 function watchCss () {
-    watch('app/assets/styles/**/*.css', {events: 'change'}, series(postCss, cssInject));
+    watch('app/assets/styles/**/*.css', {events: 'change'}, series(styles.postCss, cssInject));
 }
 
 exports.watch = series(sync, parallel(watchHtml, watchCss));

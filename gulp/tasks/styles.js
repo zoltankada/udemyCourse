@@ -11,3 +11,5 @@ function postCss () {
         .pipe(postcss([cssImport, cssvars, nested, autoprefixer]))
         .pipe(dest('app/temp/styles'));
 }
+
+exports.postCss = postCss;
