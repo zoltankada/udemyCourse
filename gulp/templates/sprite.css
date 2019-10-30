@@ -3,14 +3,15 @@ Instead edit gulp/templates/sprite */
 
 {{#shapes}}
     {{#first}}
-        .icon {
-            background-image: url('/assets/images/sprites/{{{sprite}}}');
-        }
+    .icon {
+        background-image: url('/assets/images/sprites/{{{sprite}}}');
+    }
     {{/first}}
 
     .icon--{{base}} {
-        width: {{width.outer}}px;
-        height: {{height.outer}}px;
-        bacground-position: {{position.relative.xy}};
+        width: {{width.inner}}px;
+        height: {{height.inner}}px;
+        background-position-x: {{position.absolute.x}}px;
+        background-position-y: {{position.absolute.y}}px;
     }
 {{/shapes}}

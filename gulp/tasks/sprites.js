@@ -1,6 +1,7 @@
 const { series, src, dest } = require('gulp'),
     svgSprite = require('gulp-svg-sprite'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    del = require('del');
 
 const config = {
     mode: {
@@ -13,6 +14,10 @@ const config = {
             }
         }
     }
+}
+
+function beginClean () {
+    return del(['./app/temp/sprite', './app/assets/images/sprites']);
 }
 
 function createSprite () {
@@ -32,4 +37,8 @@ function copySpriteCss () {
         .pipe(dest('./app/assets/styles/modules'));
 }
 
-exports.createSprite = series(createSprite, copySpriteGraphic, copySpriteCss);
+function endClean () {
+    return del('./app/temp/sprite');
+}
+
+exports.createSprite = series(beginClean, createSprite,copySpriteGraphic, copySpriteCss, endClean);
