@@ -1,11 +1,19 @@
 const { series, src, dest } = require('gulp'),
     svgSprite = require('gulp-svg-sprite'),
     rename = require('gulp-rename'),
-    del = require('del');
+    del = require('del'),
+    svg2png = require('gulp-svg2png');
 
 const config = {
     mode: {
         css: {
+            variables: {
+                replaceSvgWithPng: function () {
+                    return function (sprite, render) {
+                        return render(sprite).split('.svg').join('.png');
+                    }
+                }
+            },
             sprite: 'sprite.svg',
             render: {
                 css: {
@@ -26,8 +34,14 @@ function createSprite () {
         .pipe(dest('./app/temp/sprite/'));
 }
 
+function createPngCopy() {
+    return src('./app/temp/sprite/css/*svg')
+        .pipe(svg2png())
+        .pipe(dest("./app/temp/sprite/css"));
+}
+
 function copySpriteGraphic () {
-    return src('./app/temp/sprite/css/**/*.svg')
+    return src('./app/temp/sprite/css/**/*.{svg,png}')
         .pipe(dest('./app/assets/images/sprites'));
 }
 
@@ -41,4 +55,4 @@ function endClean () {
     return del('./app/temp/sprite');
 }
 
-exports.createSprite = series(beginClean, createSprite,copySpriteGraphic, copySpriteCss, endClean);
+exports.createSprite = series(beginClean, createSprite, createPngCopy, copySpriteGraphic, copySpriteCss, endClean);

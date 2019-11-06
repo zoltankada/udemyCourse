@@ -1,5 +1,6 @@
 const { series } = require('gulp'),
-    webpack = require('webpack');
+    webpack = require('webpack'),
+    modernizr = require('./modernizr');
 
 function scripts(callback) {
     webpack(require('../../webpack.config.js'), function (err, stats) {
@@ -12,4 +13,4 @@ function scripts(callback) {
     });
 }
 
-exports.scripts = series(scripts);
+exports.scripts = series(modernizr.modernizr, scripts);
