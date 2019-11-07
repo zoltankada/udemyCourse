@@ -7,7 +7,7 @@ const { series, src, dest } = require('gulp'),
 const config = {
     shape: {
         spacing: {
-            padding: 1
+            padding: 0
         }
     },
     mode: {

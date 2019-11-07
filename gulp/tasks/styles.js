@@ -10,7 +10,7 @@ const {src, dest} = require('gulp'),
 
 function postCss () {
     return src('app/assets/styles/styles.css')
-        .pipe(postcss([cssImport, mixins, cssvars, nested,hexrgba, autoprefixer]))
+        .pipe(postcss([cssImport, mixins, cssvars, nested, hexrgba, autoprefixer]))
         .pipe(dest('app/temp/styles'));
 }
 
