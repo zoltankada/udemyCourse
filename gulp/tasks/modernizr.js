@@ -6,8 +6,7 @@ function Modernizr() {
         .pipe(modernizr({
             'options': ['setClasses'],
             'tests': [
-                'svg',
-                'flexbox'
+                'svg'
             ]
         }))
         .pipe(dest('./app/temp/scripts/'));
