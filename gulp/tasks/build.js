@@ -10,14 +10,14 @@ const { series, src, dest } = require('gulp'),
 function previewDist(done) {
     browserSync.init({
         server: {
-            baseDir: "dist"
+            baseDir: "docs"
         }
     });
     done();
 }
 
 function deleteDistFolder() {
-    return del("./dist");
+    return del("./docs");
 }
 
 function optimizeImages() {
@@ -27,7 +27,7 @@ function optimizeImages() {
             interlaced: true,
             multipass: true
         }))
-        .pipe(dest("./dist/assets/images"));
+        .pipe(dest("./docs/assets/images"));
 }
 
 function buildJSandCSS () {
@@ -36,7 +36,7 @@ function buildJSandCSS () {
             css: [function() {return rev()}, function() {return cssnano()}],
             js: [function() {return rev()}, function() { return uglify()}]
         }))
-        .pipe(dest("./dist"));
+        .pipe(dest("./docs"));
 }
 
 exports.build = series(deleteDistFolder, optimizeImages, buildJSandCSS, previewDist);
